@@ -17,6 +17,7 @@ type Root struct {
 	Resources        []Resource       `json:"resources"`        // Keeping for backward compatibility.
 	TotalHourlyCost  *decimal.Decimal `json:"totalHourlyCost"`  // Keeping for backward compatibility.
 	TotalMonthlyCost *decimal.Decimal `json:"totalMonthlyCost"` // Keeping for backward compatibility.
+	RunID            string           `json:"runId,omitempty"`
 	ProjectResults   []ProjectResult  `json:"projectResults"`
 	TimeGenerated    time.Time        `json:"timeGenerated"`
 }

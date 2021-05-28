@@ -95,10 +95,21 @@ func GenerateProjectName(metadata *ProjectMetadata) string {
 
 // Strips the *@ and .git prefix and suffix
 func tidyRepoURL(url string) string {
-	r := regexp.MustCompile(`(?:\w+@)(.+)(?:\.git)`)
+	r := regexp.MustCompile(`(?:\w+@|https:\/\/)([^:\/]+)[:\/](.+)(?:\.git)`)
 	m := r.FindStringSubmatch(url)
-	if len(m) > 1 {
-		return m[1]
+	if len(m) > 2 {
+		s := ""
+
+		if strings.ToLower(m[1]) == "github.com" {
+			s += "GitHub: "
+		} else if strings.ToLower(m[1]) == "gitlab.com" {
+			s += "GitLab: "
+		} else {
+			s += m[1] + ": "
+		}
+
+		s += m[2]
+		return s
 	}
 
 	return url
